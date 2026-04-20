@@ -51,6 +51,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <meta name="naver-site-verification" content="f58745f1f3df66efcdf57032244d85a6907a0fc0" />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-6L251D0CYV"
