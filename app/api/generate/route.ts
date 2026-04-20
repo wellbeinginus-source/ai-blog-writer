@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     const userMessage = `키워드: ${keyword}\n톤: ${tone || "정보형"}\n플랫폼: ${platform || "naver"}\n길이: ${length || 2000}자`;
 
     const response = await client.messages.create({
-      model: "claude-sonnet-4-5-20250514",
+      model: "claude-sonnet-4-6",
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: userMessage }],
