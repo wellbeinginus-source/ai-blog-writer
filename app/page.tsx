@@ -32,7 +32,7 @@ export default function Home() {
             <p className="eyebrow enter">
               <span className="nowrap">A Service by</span>
               <span className="mx-1.5">·</span>
-              <span className="nowrap">주식회사 웰빙이너스</span>
+              <span className="nowrap">Wellbeinginus</span>
             </p>
 
             <h1 className="mt-10 font-serif type-display text-foreground enter delay-100">
