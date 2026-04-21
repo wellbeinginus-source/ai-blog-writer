@@ -1,4 +1,6 @@
 import Link from "next/link";
+import KakaoAdFit from "@/components/KakaoAdFit";
+import { CoupangBanner } from "@/components/CoupangBanner";
 
 export default function Home() {
   return (
@@ -130,6 +132,11 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      {/* 광고 */}
+      <div className="max-w-4xl mx-auto px-5">
+        <KakaoAdFit unit="DAN-oNAfbPd0GghC8yvp" width={320} height={100} />
+      </div>
 
       {/* 푸터 */}
       <footer className="border-t border-zinc-200 dark:border-zinc-700 py-6 text-center">
