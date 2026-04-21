@@ -7,17 +7,26 @@ const FEATURES = [
   {
     kicker: "Structure",
     title: "검색 구조에 맞춘 설계",
-    body: "키워드 위치, 소제목 계층, 단락 길이, 키워드 밀도 — SEO가 요구하는 뼈대에 맞춰 초안이 조립됩니다.",
+    bodyLines: [
+      "키워드 위치, 소제목 계층, 단락 길이, 키워드 밀도 —",
+      "SEO가 요구하는 뼈대에 맞춰 초안이 조립됩니다.",
+    ],
   },
   {
     kicker: "Voice",
     title: "플랫폼에 맞는 톤",
-    body: "네이버 블로그의 구어체, 워드프레스의 정돈된 어조. 타겟 독자의 눈높이에 맞는 목소리로 다듬어 드립니다.",
+    bodyLines: [
+      "네이버 블로그의 구어체, 워드프레스의 정돈된 어조.",
+      "타겟 독자의 눈높이에 맞는 목소리로 다듬어 드립니다.",
+    ],
   },
   {
     kicker: "Delivery",
     title: "바로 쓸 수 있는 형태",
-    body: "제목·메타·본문·해시태그·소제목 구조까지, 붙여넣기만 하면 되는 완성된 포맷으로 전달합니다.",
+    bodyLines: [
+      "제목·메타·본문·해시태그·소제목 구조까지,",
+      "붙여넣기만 하면 되는 완성된 포맷으로 전달합니다.",
+    ],
   },
 ];
 
@@ -49,11 +58,14 @@ export default function Home() {
             <div className="mt-14 max-w-2xl enter delay-300">
               <p className="type-lead text-muted">
                 웰빙이너스 에디터는 당신의 키워드에서 출발해,
+                <br className="hidden sm:block" />
                 검색에 노출되고 읽히는 글 한 편을 완성해 돌려드립니다.
               </p>
               <p className="type-lead mt-5 text-muted">
                 제목·본문·메타 디스크립션·해시태그까지 ―
-                다듬을 시간이 없는 날, 에디터가 초안을 대신 정리합니다.
+                <br className="hidden sm:block" />
+                다듬을 시간이 없는 날,
+                에디터가 초안을 대신 정리합니다.
               </p>
             </div>
 
@@ -76,7 +88,9 @@ export default function Home() {
             </div>
 
             <p className="mt-10 text-[13px] text-subtle">
-              무료 3회 체험 제공 · 결제 정보 입력 불필요
+              <span className="nowrap">무료 3회 체험 제공</span>
+              <span className="mx-1.5">·</span>
+              <span className="nowrap">결제 정보 입력 불필요</span>
             </p>
           </div>
         </section>
@@ -92,8 +106,10 @@ export default function Home() {
                 에디터가 정리한 글.
               </h2>
               <p className="mt-8 type-lead text-muted">
-                우리는 자동 생성된 결과물을 그대로 내보내지 않습니다.
-                SEO 기준과 플랫폼별 관용에 맞춰
+                우리는 자동 생성된 결과물을
+                그대로 내보내지 않습니다.
+                <br className="hidden sm:block" />
+                SEO 기준과 플랫폼별 관용에 맞춰,
                 매번 같은 품질의 초안이 나오도록 구조를 설계했습니다.
               </p>
             </div>
@@ -112,7 +128,13 @@ export default function Home() {
                     {f.title}
                   </h3>
                   <p className="mt-5 flex-1 text-[14px] leading-[1.9] text-muted">
-                    {f.body}
+                    {f.bodyLines.map((line, idx) => (
+                      <span key={idx}>
+                        {line}
+                        {idx < f.bodyLines.length - 1 && <br className="hidden sm:block" />}
+                        {idx < f.bodyLines.length - 1 && " "}
+                      </span>
+                    ))}
                   </p>
                 </article>
               ))}
@@ -133,7 +155,9 @@ export default function Home() {
                 </h2>
                 <p className="mt-8 type-lead text-muted">
                   가볍게 시작할 수 있는 무료 체험과,
-                  꾸준히 쓰는 분을 위한 두 가지 구독 플랜을 준비했습니다.
+                  <br className="hidden sm:block" />
+                  꾸준히 쓰는 분을 위한
+                  두 가지 구독 플랜을 준비했습니다.
                 </p>
                 <Link
                   href="/pricing"

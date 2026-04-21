@@ -57,7 +57,11 @@ export default function SiteFooter() {
 
         <div className="mt-16 border-t border-dark-border pt-8">
           <div className="flex flex-col gap-3 text-[11px] leading-relaxed text-dark-muted sm:flex-row sm:items-center sm:justify-between">
-            <p>&copy; {year} 주식회사 웰빙이너스. All rights reserved.</p>
+            <p>
+              &copy; {year}{" "}
+              <span className="nowrap">주식회사 웰빙이너스.</span>{" "}
+              <span className="nowrap">All rights reserved.</span>
+            </p>
             <p className="tracking-[0.22em]">WELLBEINGINUS · EDITOR</p>
           </div>
           <p className="mt-3 text-[11px] leading-[1.8] text-dark-muted/80">

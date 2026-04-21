@@ -69,7 +69,9 @@ export default function PricingPage() {
               </h1>
               <p className="mt-8 type-lead text-muted">
                 처음 한 번, 일주일에 한 편, 매일 한 편.
-                쓰는 빈도에 맞춰 선택하실 수 있도록 세 가지 플랜을 준비했습니다.
+                <br className="hidden sm:block" />
+                쓰는 빈도에 맞춰 선택하실 수 있도록
+                세 가지 플랜을 준비했습니다.
               </p>
             </div>
           </div>
@@ -86,16 +88,17 @@ export default function PricingPage() {
             </div>
 
             <p className="mt-10 text-center text-[13px] leading-[1.8] text-subtle">
-              결제 연동은 순차적으로 열립니다.
-              <br className="sm:hidden" />
-              <span className="hidden sm:inline"> </span>
-              문의:{" "}
-              <a
-                href="mailto:wellbeinginus@gmail.com"
-                className="link-underline text-foreground-soft"
-              >
-                wellbeinginus@gmail.com
-              </a>
+              <span className="nowrap">결제 연동은 순차적으로 열립니다.</span>
+              <br />
+              <span className="nowrap">
+                문의:{" "}
+                <a
+                  href="mailto:wellbeinginus@gmail.com"
+                  className="link-underline text-foreground-soft"
+                >
+                  wellbeinginus@gmail.com
+                </a>
+              </span>
             </p>
           </div>
         </section>

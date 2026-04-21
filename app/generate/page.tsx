@@ -82,7 +82,7 @@ export default function GeneratePage() {
         right={
           <span className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.16em] uppercase text-brand">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand" />
-            무료 {Math.max(0, 3 - freeCount)}회 남음
+            <span className="nowrap">무료 {Math.max(0, 3 - freeCount)}회 남음</span>
           </span>
         }
       />
@@ -98,6 +98,7 @@ export default function GeneratePage() {
             </h1>
             <p className="mt-6 type-lead text-muted">
               키워드와 몇 가지 선택지만 알려주시면,
+              <br className="hidden sm:block" />
               에디터가 초안을 정리해 돌려드립니다.
             </p>
           </div>
@@ -193,9 +194,11 @@ export default function GeneratePage() {
                 </button>
                 {loading && (
                   <p className="mt-6 text-[13px] leading-[1.8] text-subtle">
-                    구조 잡고, 키워드 배치하고, 단락을 다듬는 중입니다.
+                    구조 잡고, 키워드 배치하고,
+                    <br className="sm:hidden" />
+                    {" "}단락을 다듬는 중입니다.
                     <br />
-                    보통 15~30초 정도 걸립니다.
+                    <span className="nowrap">보통 15~30초 정도 걸립니다.</span>
                   </p>
                 )}
               </div>
@@ -220,7 +223,7 @@ function Field({
 }) {
   return (
     <div>
-      <div className="mb-4 flex items-baseline gap-4">
+      <div className="mb-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
         <span className="font-serif text-base italic text-brand">{label}</span>
         <span className="text-[14px] font-medium text-foreground">{name}</span>
         {hint && <span className="text-[12px] text-subtle">{hint}</span>}
