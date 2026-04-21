@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
 
 interface BlogResult {
   title: string;
@@ -23,147 +24,184 @@ function CopyButton({ text, label }: { text: string; label: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-colors"
+      className="inline-flex items-center gap-2 border border-border px-4 py-2 text-[11px] font-medium tracking-[0.16em] uppercase text-foreground transition-colors hover:border-foreground hover:bg-surface"
     >
-      {copied ? "복사됨!" : `${label} 복사`}
+      <span>{copied ? "복사됨" : `${label} 복사`}</span>
     </button>
   );
 }
 
 export default function ResultPage() {
   const [result, setResult] = useState<BlogResult | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const stored = sessionStorage.getItem("blog_result");
     if (stored) {
       setResult(JSON.parse(stored));
     }
   }, []);
 
+  if (!mounted) {
+    return null;
+  }
+
   if (!result) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-zinc-500 dark:text-zinc-400 mb-4">
-            생성된 글이 없습니다
-          </p>
-          <Link
-            href="/generate"
-            className="text-blue-600 hover:underline"
-          >
-            글 생성하러 가기
-          </Link>
-        </div>
-      </div>
+      <>
+        <SiteHeader />
+        <main className="flex flex-1 items-center justify-center px-5 py-24">
+          <div className="text-center">
+            <p className="eyebrow">No Draft</p>
+            <h2 className="mt-4 font-serif type-headline text-foreground">
+              아직 정리된 글이 없습니다.
+            </h2>
+            <Link
+              href="/generate"
+              className="mt-10 inline-flex items-center bg-accent px-7 py-3.5 text-[12px] font-medium tracking-[0.16em] uppercase text-background hover:bg-accent-hover"
+            >
+              글 만들러 가기 →
+            </Link>
+          </div>
+        </main>
+      </>
     );
   }
 
-  const allText = `${result.title}\n\n${result.content.replace(/<[^>]*>/g, "")}\n\n${result.hashtags.map((t) => `#${t}`).join(" ")}`;
+  const allText = `${result.title}\n\n${result.content
+    .replace(/<[^>]*>/g, "")
+    .trim()}\n\n${result.hashtags.map((t) => `#${t}`).join(" ")}`;
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900">
-      <header className="bg-white dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-700 sticky top-0 z-50">
-        <div className="max-w-3xl mx-auto px-5 h-14 flex items-center justify-between">
-          <Link href="/" className="text-lg font-bold text-zinc-800 dark:text-zinc-100">
-            AI 블로그 라이터
-          </Link>
-          <div className="flex gap-2">
+    <>
+      <SiteHeader
+        right={
+          <div className="flex items-center gap-2">
             <CopyButton text={allText} label="전체" />
             <Link
               href="/generate"
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+              className="inline-flex items-center bg-accent px-4 py-2 text-[11px] font-medium tracking-[0.16em] uppercase text-background hover:bg-accent-hover"
             >
-              새 글 생성
+              새 글
             </Link>
           </div>
-        </div>
-      </header>
+        }
+      />
 
-      <main className="max-w-3xl mx-auto px-5 py-8 space-y-6">
-        {/* 제목 */}
-        <section className="bg-white dark:bg-zinc-800 rounded-2xl border border-zinc-200 dark:border-zinc-700 p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-              제목
-            </h3>
-            <CopyButton text={result.title} label="제목" />
+      <main className="flex-1">
+        {/* Title header */}
+        <section className="border-b border-border">
+          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
+            <p className="eyebrow">Editor&apos;s Draft</p>
+            <h1 className="mt-5 font-serif type-headline text-foreground">
+              {result.title}
+            </h1>
+            <p className="mt-8 max-w-2xl text-[15px] leading-[1.85] text-muted">
+              {result.metaDescription}
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <CopyButton text={result.title} label="제목" />
+              <CopyButton text={result.metaDescription} label="메타" />
+            </div>
           </div>
-          <p className="text-xl font-bold text-zinc-800 dark:text-zinc-100">
-            {result.title}
-          </p>
         </section>
 
-        {/* 메타 디스크립션 */}
-        <section className="bg-white dark:bg-zinc-800 rounded-2xl border border-zinc-200 dark:border-zinc-700 p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-              메타 디스크립션
-            </h3>
-            <CopyButton text={result.metaDescription} label="메타" />
-          </div>
-          <p className="text-sm text-zinc-600 dark:text-zinc-300">
-            {result.metaDescription}
-          </p>
-        </section>
-
-        {/* 본문 */}
-        <section className="bg-white dark:bg-zinc-800 rounded-2xl border border-zinc-200 dark:border-zinc-700 p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-              본문
-            </h3>
-            <CopyButton
-              text={result.content.replace(/<[^>]*>/g, "")}
-              label="본문"
+        {/* Body */}
+        <section className="border-b border-border bg-surface">
+          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
+            <div className="mb-10 flex items-center justify-between">
+              <p className="eyebrow">Body</p>
+              <CopyButton
+                text={result.content.replace(/<[^>]*>/g, "").trim()}
+                label="본문"
+              />
+            </div>
+            <article
+              className="prose-editorial text-[16px] sm:text-[17px]"
+              dangerouslySetInnerHTML={{ __html: result.content }}
             />
           </div>
-          <div
-            className="prose prose-sm dark:prose-invert max-w-none text-zinc-700 dark:text-zinc-300"
-            dangerouslySetInnerHTML={{ __html: result.content }}
-          />
         </section>
 
-        {/* 해시태그 */}
-        <section className="bg-white dark:bg-zinc-800 rounded-2xl border border-zinc-200 dark:border-zinc-700 p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">
-              해시태그
-            </h3>
-            <CopyButton
-              text={result.hashtags.map((t) => `#${t}`).join(" ")}
-              label="태그"
-            />
+        {/* Structure + tags */}
+        <section className="border-b border-border bg-background-alt">
+          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
+            <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-16">
+              {/* Outline */}
+              <div>
+                <p className="eyebrow">Structure</p>
+                <h3 className="mt-3 font-serif text-xl text-foreground sm:text-2xl">
+                  소제목 구조
+                </h3>
+                <ol className="mt-6 space-y-3 border-l border-border pl-5">
+                  {result.outline.map((item, i) => (
+                    <li
+                      key={`${i}-${item}`}
+                      className="text-[14px] leading-[1.75] text-muted"
+                    >
+                      <span className="mr-3 font-serif italic text-brand">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Hashtags */}
+              <div>
+                <div className="flex items-center justify-between">
+                  <p className="eyebrow">Hashtags</p>
+                  <CopyButton
+                    text={result.hashtags.map((t) => `#${t}`).join(" ")}
+                    label="태그"
+                  />
+                </div>
+                <h3 className="mt-3 font-serif text-xl text-foreground sm:text-2xl">
+                  추천 해시태그
+                </h3>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {result.hashtags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="border border-border bg-surface px-3 py-1.5 text-[13px] text-foreground-soft"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {result.hashtags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm"
+        </section>
+
+        {/* CTA */}
+        <section className="border-b border-border">
+          <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8 sm:py-24">
+            <p className="eyebrow">Next</p>
+            <h2 className="mt-4 font-serif type-headline text-foreground">
+              또 다른 글도,
+              <br />
+              정리해 드릴까요?
+            </h2>
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/generate"
+                className="inline-flex items-center bg-accent px-7 py-4 text-[12px] font-medium tracking-[0.16em] uppercase text-background hover:bg-accent-hover"
               >
-                #{tag}
-              </span>
-            ))}
+                새 글 시작 →
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center border border-border-strong px-7 py-4 text-[12px] font-medium tracking-[0.16em] uppercase text-foreground hover:bg-surface"
+              >
+                플랜 보기
+              </Link>
+            </div>
           </div>
-        </section>
-
-        {/* 소제목 구조 */}
-        <section className="bg-white dark:bg-zinc-800 rounded-2xl border border-zinc-200 dark:border-zinc-700 p-6">
-          <h3 className="text-sm font-semibold text-zinc-500 dark:text-zinc-400 mb-3">
-            글 구조 (소제목)
-          </h3>
-          <ol className="list-decimal list-inside space-y-1 text-sm text-zinc-600 dark:text-zinc-300">
-            {result.outline.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ol>
         </section>
       </main>
-
-      <footer className="border-t border-zinc-200 dark:border-zinc-700 py-6 text-center">
-        <p className="text-xs text-zinc-400">
-          운영: 온기획(ON) | js4yj@naver.com
-        </p>
-      </footer>
-    </div>
+    </>
   );
 }

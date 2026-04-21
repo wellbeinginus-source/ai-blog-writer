@@ -1,57 +1,51 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ai-blog-writer.vercel.app"),
+  metadataBase: new URL("https://ai-blog-writer-eosin.vercel.app"),
   title: {
-    default: "AI 블로그 글 자동 생성 | 키워드만 넣으면 SEO 최적화 글 완성",
-    template: "%s | AI 블로그 라이터",
+    default: "AI 블로그 작성기 | 웰빙이너스 에디터 서비스",
+    template: "%s | 웰빙이너스 에디터",
   },
   description:
-    "키워드만 입력하면 AI가 SEO 최적화된 블로그 글을 자동으로 작성해드립니다. 네이버 블로그, 워드프레스 맞춤 글 생성.",
+    "키워드만 입력하면 SEO 최적화된 블로그 글을 구성·작성·다듬어 완성해 드립니다. 주식회사 웰빙이너스가 운영하는 전문 AI 에디터 서비스.",
   keywords: [
-    "AI 블로그",
+    "AI 블로그 작성기",
+    "AI 블로그 라이터",
     "블로그 글 자동 생성",
     "SEO 글쓰기",
-    "AI 글쓰기",
-    "블로그 자동 발행",
-    "네이버 블로그 AI",
-    "SEO 최적화",
+    "네이버 블로그 자동화",
+    "워드프레스 AI",
+    "웰빙이너스",
   ],
   openGraph: {
-    title: "AI 블로그 글 자동 생성",
-    description: "키워드만 넣으면 SEO 최적화 블로그 글이 완성됩니다.",
+    title: "AI 블로그 작성기 | 웰빙이너스 에디터 서비스",
+    description: "키워드만 넣으면 SEO 최적화 블로그 글이 정돈되어 도착합니다.",
     type: "website",
     locale: "ko_KR",
-    url: "https://ai-blog-writer.vercel.app",
-    siteName: "AI 블로그 라이터",
+    url: "https://ai-blog-writer-eosin.vercel.app",
+    siteName: "웰빙이너스 에디터",
   },
   robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="ko"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="ko" className="h-full antialiased">
       <head>
         <meta name="naver-site-verification" content="f58745f1f3df66efcdf57032244d85a6907a0fc0" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-6L251D0CYV"
