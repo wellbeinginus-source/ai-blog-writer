@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import KakaoAdFit from "@/components/KakaoAdFit";
 
 const FEATURES = [
   {
@@ -152,6 +153,13 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* ── Ad ───────────────────────────── */}
+        <div className="border-b border-border bg-background-alt">
+          <div className="mx-auto flex max-w-6xl justify-center px-5 py-6 sm:px-8">
+            <KakaoAdFit unit="DAN-oNAfbPd0GghC8yvp" width={320} height={100} />
+          </div>
+        </div>
       </main>
 
       <SiteFooter />
