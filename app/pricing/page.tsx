@@ -93,10 +93,10 @@ export default function PricingPage() {
               <span className="nowrap">
                 문의:{" "}
                 <a
-                  href="mailto:wellbeinginus@gmail.com"
+                  href="mailto:yj6z0907@gmail.com"
                   className="link-underline text-foreground-soft"
                 >
-                  wellbeinginus@gmail.com
+                  yj6z0907@gmail.com
                 </a>
               </span>
             </p>
