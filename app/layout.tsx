@@ -35,6 +35,22 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full antialiased">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "AI 블로그 작성기",
+              url: "https://ai-blog-writer-eosin.vercel.app",
+              applicationCategory: "BusinessApplication",
+              inLanguage: "ko-KR",
+              description:
+                "키워드만 넣으면 SEO 최적화 블로그 글이 정돈되어 도착합니다.",
+              offers: { "@type": "Offer", priceCurrency: "KRW" },
+            }),
+          }}
+        />
         <meta name="naver-site-verification" content="f58745f1f3df66efcdf57032244d85a6907a0fc0" />
         <link
           rel="stylesheet"
